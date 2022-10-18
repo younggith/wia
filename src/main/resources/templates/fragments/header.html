@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Header</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://kit.fontawesome.com/1ae8944a59.js" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <style>
+        .header-wrap{
+            border-bottom: 2px solid #34495e;
+            position: relative;
+            height: 100px;
+            padding-top: 30px;
+        }
+        .first-row{
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .first-row ul{
+            margin: 0 auto;
+        }
+        .first-row ul li{
+            display: inline-block;
+            border-right: 1px solid #576979;
+            width: 80px;
+            text-align: center;
+        }
+        .first-row ul li:last-child{
+                border-right: 0;
+        }
+        /* 메뉴 막대는 보이지 않게 지정*/
+        .second-row{
+            display: none;
+            position: absolute;
+            top: 0;
+            width: 50%;
+            background-color: gold;
+        }
+        .second-row ul{
+            margin: auto;
+            margin-top: 30px;
+            padding: 0;
+        }
+        .second-row ul li{
+            display: block;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #576979;
+        }
+        /* 메뉴 항목 테스트의 줄 간격*/
+        .second-row ul li a{
+            line-height: 50px;
+        }
+        #trigger{
+            display: block; /* 트리거를 화면에 표시 */
+            background-color: #283744;
+            width: 100%;
+            padding-left: 15px;
+            line-height: 40px;
+        }
+        /*트리거 옆에 이미지 표시*/
+        #trigger a::after{
+            content: "";
+            background: url('../img/bars-solid.svg') no-repeat;
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            position: absolute;
+            left: 15px;
+            top: 0;
+        }
+
+        @media(min-width:721px){
+            .header-wrap{
+                padding-top: 0;
+            }
+            .second-row{
+                display: block;
+                position: absolute;
+                text-align: center;
+                bottom: 0;
+                top:auto;
+                left: 760px;
+                white-space: nowrap;
+                transform: translate(-50%, 0%);
+                width: auto;
+            }
+            .second-row ul{
+                margin: 0 auto;
+                padding: 0;
+            }
+            .second-row ul li{
+                display: inline-block;
+                border-right: 1px solid #576979;
+                border-bottom: 0;
+                width: 120px;
+                text-align: center;
+            }
+            .second-row ul li:last-child{
+                border-right: 0;
+            }
+            .logo{
+                position: absolute;
+                width: 100px;
+            }
+            /* 트리거를 화면에 표시하지 않음 */
+            #trigger{
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div th:fragment="header">
+  <div class="header-wrap">
+    <nav>
+      <div class="logo">
+        <img src="https://via.placeholder.com/100x100">
+      </div>
+      <div class="first-row">
+        <ul>
+          <li>공지</li>
+          <li>문의사항</li>
+          <li>로그인</li>
+          <li>즐겨찾기</li>
+        </ul>
+      </div>
+      <div class="second-row">
+        <ul>
+          <li><a href="#">HOME</a></li>
+          <li><a href="#">ABOUT</a></li>
+          <li><a href="#">WEB</a></li>
+          <li><a href="#">DESIGN</a></li>
+          <li><a href="#">MAP</a></li>
+          <li><a href="#">CONTACT</a></li>
+        </ul>
+      </div>
+      <div id="trigger">
+        <a href="#"></a>
+      </div>
+    </nav>
+  </div>
+</div>
+<script>
+        $(function () {
+            let trigger = $('#trigger a');
+            let menu = $('.second-row');
+            $(trigger).on('click', function (e) {
+                e.preventDefault();
+                menu.slideToggle();
+            });
+            $(window).resize(function () {
+                let w = $(window).width();
+                if (w > 320 && !menu.is(':hidden')) {
+                    menu.removeAttr('style');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
