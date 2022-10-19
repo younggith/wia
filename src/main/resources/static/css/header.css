@@ -1,0 +1,185 @@
+.header-wrap{
+    position: relative;
+    height: 130px;
+    padding-top: 30px;
+    width: 80%;
+    margin: auto;
+}
+.first-row{
+    position: absolute;
+    right: 0;
+    top: 0;
+    white-space: nowrap;
+}
+.first-row ul{
+    margin: 0 auto;
+}
+.first-row ul li{
+    display: inline-block;
+    border-right: 1px solid #576979;
+    width: 80px;
+    text-align: center;
+}
+.first-row ul li:last-child{
+    border-right: 0;
+}
+/* 메뉴 막대는 보이지 않게 지정*/
+.second-row{
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: gold;
+    z-index: 1;
+}
+.second-row ul{
+    margin: auto;
+    margin-top: 30px;
+    padding: 0;
+}
+.second-row ul li{
+    display: block;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #576979;
+}
+/* 메뉴 항목 테스트의 줄 간격*/
+.second-row ul li a{
+    line-height: 50px;
+}
+#trigger{
+    display: block; /* 트리거를 화면에 표시 */
+    background-color: #283744;
+    width: 100%;
+    padding-left: 15px;
+    line-height: 40px;
+}
+/*트리거 옆에 이미지 표시*/
+#trigger a::after{
+    content: "";
+    background: url('/img/bars-solid.svg') no-repeat;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    position: absolute;
+    left: 15px;
+    top: 0;
+    z-index: 2;
+}
+.logo{
+    position: absolute;
+    width: 100px;
+}
+input:-ms-input-placeholder{
+	color:#a8a8a8;
+}
+input::-webkit-input-placeholder{
+    color:#a8a8a8;
+}
+input::-moz-placeholder{
+	color:#a8a8a8;
+}
+.search-area{
+	height: 40px;
+	width: 250px;
+	border: 1px solid #1b5ac2;
+	background: #fff;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.search-area input{
+	font-size: 12px;
+	width: 125px;
+	padding: 10px;
+	border: 0;
+	outline: none;
+	float: left;
+}
+.search-area button{
+	width: 50px;
+	height: 100%;
+	border: 0;
+	background: #1b5ac2;
+	outline: none;
+	float: right;
+	color: #fff;
+	cursor:pointer;
+}
+@media(min-width:721px){
+    .header-wrap{
+        padding-top: 0;
+        height: 100px;
+    }
+    .second-row{
+        display: block;
+        position: absolute;
+        text-align: center;
+        bottom: 0;
+        top:auto;
+        /*left: 760px;*/
+        left: 50%;
+        margin-left: -28%;
+        white-space: nowrap;
+        /*transform: translate(-50%, 0%);*/
+        width: auto;
+    }
+    .second-row ul{
+        margin: 0 auto;
+        padding: 0;
+    }
+    .second-row ul li{
+        display: inline-block;
+        border-right: 1px solid #576979;
+        border-bottom: 0;
+        width: 120px;
+        text-align: center;
+    }
+    .second-row ul li:last-child{
+         border-right: 0;
+    }
+    .logo{
+        position: absolute;
+        width: 100px;
+    }
+    /* 트리거를 화면에 표시하지 않음 */
+    #trigger{
+        display: none;
+    }
+    input:-ms-input-placeholder{
+    	color:#a8a8a8;
+    }
+    input::-webkit-input-placeholder{
+    	color:#a8a8a8;
+    }
+    input::-moz-placeholder{
+    	color:#a8a8a8;
+    }
+    .search-area{
+    	height: 40px;
+    	width: 250px;
+    	border: 1px solid #1b5ac2;
+    	background: #fff;
+    	position: absolute;
+    	bottom: 0;
+    	right: 0;
+    }
+    .search-area input{
+    	font-size: 12px;
+    	width: 125px;
+    	padding: 10px;
+    	border: 0;
+    	outline: none;
+    	float: left;
+    }
+    .search-area button{
+    	width: 50px;
+    	height: 100%;
+    	border: 0;
+    	background: #1b5ac2;
+    	outline: none;
+    	float: right;
+    	color: #fff;
+    	cursor:pointer;
+    }
+}
