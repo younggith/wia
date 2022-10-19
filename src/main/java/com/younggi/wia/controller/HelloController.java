@@ -18,7 +18,7 @@ public class HelloController {
     @GetMapping("hello")
     @ResponseBody
     public Hello hello(Hello hello, Model model) {
-//        model.addAttribute("data", "hello다!!");
+//        model.addAttribute("data", "hello다!");
         return hello;
     }
     @Data
