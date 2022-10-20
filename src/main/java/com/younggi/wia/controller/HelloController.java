@@ -11,8 +11,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HelloController {
 
     @GetMapping("/")
-    public String test() {
+    public String home() {
         return "index";
+    }
+
+    @GetMapping("/wia/login")
+    public String login() {
+        return "login/login";
+    }
+
+    @GetMapping("/wia/notice")
+    public String notice() {
+        return "notice/notice";
     }
 
     @GetMapping("hello")

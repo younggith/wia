@@ -28,7 +28,12 @@
 }
 .content .main-layout .category .item{
 	display: grid;
-	grid-template-rows: repeat(2, minmax(10px, auto));
+	position: relative;
+}
+.item .item-in{
+	position: absolute;
+	bottom: 10%;
+	left: 50%;
 }
 .content .sub-layout{
 	display: grid;
@@ -71,6 +76,19 @@
 }
 .search-nav .more-btn{
 	float: right;
+	border: 1px solid #c9c9c9;
+	width: 100px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+}
+.more-btn a{
+	color: #666666;
+	font-weight: bold;
+	display: block;
+}
+.more-btn a:hover{
+	text-decoration: none;
 }
 .my-select{
 	color: black;

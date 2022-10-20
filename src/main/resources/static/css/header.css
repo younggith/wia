@@ -1,3 +1,6 @@
+header{
+    background-color: #F99E39;
+}
 .header-wrap{
     position: relative;
     height: 130px;
@@ -29,7 +32,6 @@
     position: absolute;
     top: 0;
     width: 100%;
-    background-color: gold;
     z-index: 1;
 }
 .second-row ul{
@@ -90,7 +92,7 @@ input::-moz-placeholder{
 }
 .search-area input{
 	font-size: 12px;
-	width: 125px;
+	width: 195px;
 	padding: 10px;
 	border: 0;
 	outline: none;
@@ -166,7 +168,7 @@ input::-moz-placeholder{
     }
     .search-area input{
     	font-size: 12px;
-    	width: 125px;
+    	width: 195px;
     	padding: 10px;
     	border: 0;
     	outline: none;

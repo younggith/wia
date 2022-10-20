@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="/css/index.css"> -->
+    <style>
+        .wrap{
+            background-color: #EDEDED;
+        }
+        .notice-wrap{
+            width: 80%;
+            margin: auto;
+            padding: 20px 0 20px 0;
+        }
+        .notice-wrap > span{
+            font-weight: bold;
+        }
+        .notice-table{
+            width: 80%;
+            padding: 0;
+        }
+        .notice-text-center{
+            text-align: center;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<div layout:fragment="content">
+    <div class="wrap">
+        <div class="notice-wrap">
+            <span>공지사항</span>
+        </div>
+    </div>
+    <div class="container-fluid notice-table">
+        <div class="row notice-text-center">
+            <div class="col-md-1">
+                번호
+            </div>
+            <div class="col-md-5">
+                제목
+            </div>
+            <div class="col-md-2">
+                작성자
+            </div>
+            <div class="col-md-3">
+                작성날짜
+            </div>
+            <div class="col-md-1">
+                조회수
+            </div>
+        </div>
+    </div>
+</div>
+</html>
