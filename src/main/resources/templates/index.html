@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/index.css">
+        <script>
+            $(function () {
+                let trigger = $('#trigger a');
+                let menu = $('.second-row');
+                $(trigger).on('click', function (e) {
+                    e.preventDefault();
+                    menu.slideToggle();
+                });
+                $(window).resize(function () {
+                    let w = $(window).width();
+                    if (!menu.is(':hidden')) {
+                        menu.removeAttr('style');
+                    }
+                });
+            });
+        </script>
+    </head>
+
+    <div layout:fragment="content">
+        <div class="content-wrap">
+            <div class="content">
+                <div class="search-nav">
+                    <div class="search-text">
+                        <span>위아 TOP 5</span>
+                    </div>
+                    <div class="search-si">
+                        <select class="my-select" name="si">
+                            <option value="" selected>직업선택</option>
+                            <option value="학생">학생</option>
+                            <option value="회사원">회사원</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="search-gu">
+                        <select class="my-select" name="gu">
+                            <option value="" selected>직업선택</option>
+                            <option value="학생">학생</option>
+                            <option value="회사원">회사원</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="more-btn">
+                        <a href="#">
+                            더보기 >
+                        </a>
+                    </div>
+                </div>
+                <div class="main-layout">
+                    <div class="category">
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                2
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                3
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                4
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                5
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                6
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                7
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                8
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="https://via.placeholder.com/200x200">
+                            <div>
+                                9
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-layout">
+                    <div>
+                        <span>
+                            1
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            가게이름
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            한식 > 카페 > 010-1111-2222
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            순위변동
+                        </span>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/100x100">
+                    </div>
+                </div>
+                <div class="sub-layout">
+                    <div>
+                        <span>
+                            2
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            가게이름
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            한식 > 카페 > 010-1111-2222
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            순위변동
+                        </span>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/100x100">
+                    </div>
+                </div>
+                <div class="sub-layout">
+                    <div>
+                        <span>
+                            3
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            가게이름
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            한식 > 카페 > 010-1111-2222
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            순위변동
+                        </span>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/100x100">
+                    </div>
+                </div>
+                <div class="sub-layout">
+                    <div>
+                        <span>
+                            4
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            가게이름
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            한식 > 카페 > 010-1111-2222
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            순위변동
+                        </span>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/100x100">
+                    </div>
+                </div>
+                <div class="sub-layout">
+                    <div>
+                        <span>
+                            5
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            가게이름
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            한식 > 카페 > 010-1111-2222
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            순위변동
+                        </span>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/100x100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

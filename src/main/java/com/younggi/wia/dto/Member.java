@@ -1,5 +1,8 @@
 package com.younggi.wia.dto;
 
+import lombok.Data;
+
+@Data
 public class Member {
 
     private Long id;
