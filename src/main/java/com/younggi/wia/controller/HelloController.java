@@ -11,18 +11,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HelloController {
 
     @GetMapping("/")
-    public String home() {
+    public String homeView() {
         return "index";
     }
 
     @GetMapping("/wia/login")
-    public String login() {
+    public String loginView() {
         return "login/login";
     }
 
     @GetMapping("/wia/notice")
-    public String notice() {
+    public String noticeView() {
         return "notice/notice";
+    }
+
+    @GetMapping("/wia/login/join")
+    public String joinView() {
+        return "login/join";
     }
 
     @GetMapping("hello")

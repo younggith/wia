@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>위아 : 회원가입</title>
+  <link rel="stylesheet" type="text/css" href="/css/join.css">
+</head>
+<body>
+  <div class="join-wrap">
+    <h1 class="j-logo">
+      <a th:href="@{/}">WIA</a>
+    </h1>
+    <div class="content">
+      <div class="row-group">
+        <div class="join-row">
+          <h3 class="join-title">
+            <label for="id"><span class="require">*</span>아이디</label>
+          </h3>
+          <span class="ps-box">
+                          <input type="text" id="id" name="id" class="int" title="ID" maxlength="20">
+                      </span>
+          <span class="error-next-box"></span>
+        </div>
+        <div class="join-row">
+          <h3 class="join-title">
+            <label for="pswd1"><span class="require">*</span>비밀번호</label>
+          </h3>
+          <span class="ps-box">
+                          <input type="text" id="pswd1" name="pswd1" class="int" title="비밀번호 입력" maxlength="20">
+                      </span>
+          <span class="error-next-box"></span>
+          <h3 class="join-title">
+            <label for="pswd2"><span class="require">*</span>비밀번호 재확인</label>
+          </h3>
+          <span class="ps-box">
+                          <input type="text" id="pswd2" name="pswd2" class="int" title="비밀번호 재확인 입력" maxlength="20">
+                      </span>
+          <span class="error-next-box"></span>
+        </div>
+        <div class="join-row">
+          <h3 class="join-title">
+            <label for="name"><span class="require">*</span>이름</label>
+          </h3>
+          <span class="ps-box">
+                          <input type="text" id="name" name="name" class="int" title="이름 입력" maxlength="20">
+                      </span>
+          <span class="error-next-box"></span>
+        </div>
+        <div class="join-birthday">
+          <h3 class="join-title">
+            <label for="yy"><span class="require">*</span>생년월일</label>
+          </h3>
+          <div class="bir-wrap">
+            <div class="bir-yy">
+                              <span class="ps-box">
+                                  <input type="text" id="yy" placeholder="년(4자)" aria-label="년(4자)" class="int" maxlength="4">
+                              </span>
+            </div>
+            <div class="bir-mm">
+                              <span class="ps-box">
+                                  <select id="mm" class="sel" aria-label="월">
+                                      <option value="">월</option>
+                                      <option value="01">1</option>
+                                      <option value="02">2</option>
+                                      <option value="03">3</option>
+                                      <option value="04">4</option>
+                                      <option value="05">5</option>
+                                      <option value="06">6</option>
+                                      <option value="07">7</option>
+                                      <option value="08">8</option>
+                                      <option value="09">9</option>
+                                      <option value="10">10</option>
+                                      <option value="11">11</option>
+                                      <option value="12">12</option>
+                                  </select>
+                              </span>
+            </div>
+            <div class="bir-dd">
+                              <span class="ps-box">
+                                  <input type="text" id="dd" placeholder="일" aria-label="일" class="int" maxlength="2">
+                              </span>
+            </div>
+          </div>
+          <span class="error-next-box" id="birthdayMsg" style="" aria-live="assertive">태어난 년도 4자리를 정확하게 입력하세요.</span>
+        </div>
+        <div class="join-row">
+          <h3 class="join-title">
+            <label for="gender">성별</label>
+          </h3>
+          <span class="ps-box gender-code">
+                          <select id="gender" name="gender" class="sel" aria-label="성별">
+                                      <option value="M">남자</option>
+                                      <option value="F">여자</option>
+                          </select>
+                      </span>
+        </div>
+        <div class="join-row">
+          <h3 class="join-title">
+            <label for="email">이메일</label>
+          </h3>
+          <span class="ps-box">
+                          <input type="text" id="email" name="email" class="int" title="선택입력" placeholder="선택입력" maxlength="100">
+                      </span>
+        </div>
+        <div class="join-row">
+          <h3 class="join-title">
+            <label for="postcode">주소</label>
+          </h3>
+          <div class="post-box">
+            <input type="text" class="ps-box post-int" id="postcode" placeholder="우편번호" readonly>
+            <input type="button" class="btn-verify btn-primary" onclick="findDaumPostcode()" value="우편번호 찾기"><br>
+            <input type="text" class="ps-box post-int" id="address" placeholder="주소" readonly><br>
+            <input type="text" class="ps-box post-int" id="detail_address" placeholder="상세주소">
+          </div>
+        </div>
+        <div class="join-row">
+          <h3 class="join-title">
+            <label for="telno"><span class="require">*</span>휴대전화</label>
+          </h3>
+          <div class="tel-box">
+                          <span class="ps-box int-mobile">
+                              <input type="tel" id="telno" name="telno" placeholder="전화번호 입력" aria-label="전화번호 입력" class="int" maxlength="16">
+                          </span>
+            <button type="button" class="btn-verify btn-primary" id="btnSend">
+              인증번호 받기
+            </button>
+          </div>
+        </div>
+        <div class="ps-box auth-disable">
+          <input type="tel" id="authNum" name="authNum" placeholder="인증번호 입력하세요" class="int" disabled="" maxlength="6">
+        </div>
+        <span class="error-next-box" id="구분해야됨 자바스크립트"></span>
+        <div class="join-btn-area">
+          <button type="button" id="btnJoin" class="btn-type btn-primary"><span>가입하기</span></button>
+        </div>
+        <div class="join-footer">
+          <p>COPYRIGHT© 2022 박영기. ALL RIGHT RESERVED.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    function findDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function(data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var addr = ''; // 주소 변수
+          var extraAddr = ''; // 참고항목 변수
+
+          //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+            addr = data.roadAddress;
+          } else { // 사용자가 지번 주소를 선택했을 경우(J)
+            addr = data.jibunAddress;
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById('postcode').value = data.zonecode;
+          document.getElementById("address").value = addr;
+          // 커서를 상세주소 필드로 이동한다.
+          document.getElementById("detail_address").focus();
+        }
+      }).open();
+    }
+  </script>
+</body>
+</html>
