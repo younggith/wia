@@ -3,33 +3,41 @@ package com.younggi.wia.controller;
 import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
+@RequestMapping("/wia")
 @Controller
 public class HelloController {
 
-    @GetMapping("/")
+    @GetMapping("")
     public String homeView() {
         return "index";
     }
 
-    @GetMapping("/wia/login")
+    @GetMapping("/login")
     public String loginView() {
         return "login/login";
     }
 
-    @GetMapping("/wia/notice")
+    @GetMapping("/notice")
     public String noticeView() {
         return "notice/notice";
     }
 
-    @GetMapping("/wia/login/join")
+    @GetMapping("/login/join")
     public String joinView() {
         return "login/join";
     }
 
+    @PostMapping("/auth/sms")
+    @ResponseBody
+    public Hello authSms(@RequestBody Map<String,Object> inputMap){
+        Hello hello = new Hello();
+        hello.setName(String.valueOf(inputMap.get("name")));
+        return hello;
+    }
     @GetMapping("hello")
     @ResponseBody
     public Hello hello(Hello hello, Model model) {
