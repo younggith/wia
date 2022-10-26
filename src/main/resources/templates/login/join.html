@@ -176,6 +176,13 @@
         return fetch(url, {method: 'DELETE'});
       }
     }
+    /* Password - 영문, 숫자, 특수문자 3종류 조합, 자리수 9 ~ 32 */
+
+    const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{9,32}$/;
+    /* Email 패턴 */          
+    const EMAIL_PATTERN = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    /* Tel 패턴 */
+    const TEL_PATTERN = /^\d{2,3}-\d{3,4}-\d{4}$/;
     const authBtn = document.getElementById("btnSend");
     const authNum = document.getElementById("authNum");
     authBtn.addEventListener("click", function(){
