@@ -132,7 +132,7 @@
           </div>
           <span class="error-next-box" id="authMsg"></span>
           <div class="join-btn-area">
-            <button type="button" id="btnJoin" class="btn-type btn-primary" onclick='join();'><span>가입하기</span></button>
+            <button type="button" id="btnJoin" class="btn-type btn-primary"><span>가입하기</span></button>
           </div>
           <div class="join-footer">
             <p>COPYRIGHT© 2022 박영기. ALL RIGHT RESERVED.</p>
@@ -143,7 +143,39 @@
   </div>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-  <script>
+  <script type="module">
+    export class Request {
+      /*constructor(url){
+        this.url = url;
+      }*/
+      get(url){
+        return fetch(url);
+      }
+      post(url, payload){
+        return fetch(url, {
+          method: 'POST',
+          headers: {'content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+      }
+      put(url, payload){
+        return fetch(url, {
+          method: 'PUT',
+          headers: {'content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+      }
+      patch(url, payload){
+        return fetch(url, {
+          method: 'PATCH',
+          headers: {'content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+      }
+      delete(url){
+        return fetch(url, {method: 'DELETE'});
+      }
+    }
     const authBtn = document.getElementById("btnSend");
     const authNum = document.getElementById("authNum");
     authBtn.addEventListener("click", function(){
@@ -159,7 +191,30 @@
           event.target.querySelector('input').focus();
       });
     });
-    function join(){
+    let request = new Request();
+    let joinBtn = document.getElementById('btnJoin');
+    joinBtn.addEventListener('click', async ()=>{
+      try {
+        const response = await request.post('/wia/auth/sms', {name: '앵기', title: 'spring'});
+        if(response.status === 200) {
+          const data = response.json();
+          console.log(data);
+        }else {
+          throw Error(response.status);
+        }
+      }catch(err) {
+        console.log(err);
+      }
+      /*request.post('/wia/auth/sms', {name: '앵기', title: 'spring'})
+      .then(response => {
+        if(!response.ok) throw Error(response.status);
+        return response.json();
+      })
+      .then(todos => console.log(todos))
+      .catch(err => console.log(err));*/
+    });
+    
+    function joinExample(){
       let xhr;
       /* 입력된 데이터 Json 형식으로 변경 */
       let reqJson = new Object();

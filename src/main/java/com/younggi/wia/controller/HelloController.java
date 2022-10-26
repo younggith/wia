@@ -36,6 +36,7 @@ public class HelloController {
     public Hello authSms(@RequestBody Map<String,Object> inputMap){
         Hello hello = new Hello();
         hello.setName(String.valueOf(inputMap.get("name")));
+        hello.setTitle(String.valueOf(inputMap.get("title")));
         return hello;
     }
     @GetMapping("hello")
