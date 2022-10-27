@@ -4,9 +4,12 @@ import com.younggi.wia.dao.impl.MemoryMemberRepository;
 import com.younggi.wia.dto.Member;
 import com.younggi.wia.dao.MemberRepository;
 import com.younggi.wia.service.MemberService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+@Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 

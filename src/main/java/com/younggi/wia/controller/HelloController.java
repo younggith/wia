@@ -1,15 +1,24 @@
 package com.younggi.wia.controller;
 
+import com.younggi.wia.common.bean.ResultMap;
+import com.younggi.wia.service.MemberService;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Result;
+import java.util.HashMap;
 import java.util.Map;
 
 @RequestMapping("/wia")
 @Controller
+@RequiredArgsConstructor
 public class HelloController {
+
+    private final MemberService memberService;
 
     @GetMapping("")
     public String homeView() {
@@ -29,6 +38,18 @@ public class HelloController {
     @GetMapping("/login/join")
     public String joinView() {
         return "login/join";
+    }
+
+    @GetMapping("/signup/checkId")
+    @ResponseBody
+    public ResultMap checkId(String id) {
+        ResultMap result = new ResultMap();
+        String checkId = "test";
+        if(checkId.equals(id)){
+            result.put("status", 211);
+            return result;
+        }
+        return result;
     }
 
     @PostMapping("/auth/sms")

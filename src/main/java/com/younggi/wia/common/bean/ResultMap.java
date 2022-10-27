@@ -9,7 +9,7 @@ public class ResultMap extends HashMap<String, Object>{
 
     public ResultMap() {
         super();
-        this.put("status", "200");
+        this.put("status", 200);
         this.put("msg", "success");
     }
 
@@ -25,7 +25,7 @@ public class ResultMap extends HashMap<String, Object>{
     }
 
     public void setErr(Exception e) {
-        this.put("status", "999");
+        this.put("status", 999);
         this.put("msg", e.getMessage());
     }
 
