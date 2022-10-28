@@ -55,12 +55,12 @@
             <div class="bir-wrap">
               <div class="bir-yy">
                 <span class="ps-box">
-                  <input type="text" id="yy" placeholder="년(4자)" aria-label="년(4자)" class="int" maxlength="4">
+                  <input type="text" id="yy" name="yy" placeholder="년(4자)" aria-label="년(4자)" class="int" maxlength="4">
                 </span>
               </div>
               <div class="bir-mm">
                 <span class="ps-box">
-                  <select id="mm" class="sel" aria-label="월">
+                  <select id="mm" name="mm" class="sel" aria-label="월">
                     <option value="">월</option>
                     <option value="01">1</option>
                     <option value="02">2</option>
@@ -79,7 +79,7 @@
               </div>
               <div class="bir-dd">
                 <span class="ps-box">
-                  <input type="text" id="dd" placeholder="일" aria-label="일" class="int" maxlength="2">
+                  <input type="text" id="dd" name="dd" placeholder="일" aria-label="일" class="int" maxlength="2">
                 </span>
               </div>
             </div>
@@ -103,16 +103,17 @@
             <span class="ps-box">
               <input type="text" id="email" name="email" class="int" title="선택입력" placeholder="선택입력" maxlength="100">
             </span>
+            <span class="error-next-box" id="emailMsg"></span>
           </div>
           <div class="join-row">
             <h3 class="join-title">
               <label for="postcode">주소</label>
             </h3>
             <div class="post-box">
-              <input type="text" class="ps-box post-int" id="postcode" placeholder="우편번호" readonly>
+              <input type="text" class="ps-box post-int" id="postcode" name="postcode" placeholder="우편번호" readonly>
               <input type="button" class="btn-verify btn-primary" onclick="findDaumPostcode()" value="우편번호 찾기"><br>
-              <input type="text" class="ps-box post-int" id="address" placeholder="주소" readonly><br>
-              <input type="text" class="ps-box post-int" id="detail_address" placeholder="상세주소">
+              <input type="text" class="ps-box post-int" id="address" name="address" placeholder="주소" readonly><br>
+              <input type="text" class="ps-box post-int" id="detail_address" name="detail_address" placeholder="상세주소">
             </div>
           </div>
           <div class="join-row">
@@ -120,17 +121,17 @@
               <label for="telno"><span class="require">*</span>휴대전화</label>
             </h3>
             <div class="tel-box">
-                            <span class="ps-box int-mobile">
-                                <input type="tel" id="telno" name="telno" placeholder="전화번호 입력" aria-label="전화번호 입력" class="int" maxlength="16">
-                            </span>
-              <button type="button" class="btn-verify btn-primary" id="btnSend">
+              <span class="ps-box int-mobile">
+                <input type="tel" id="telno" name="telno" placeholder="전화번호 입력" aria-label="전화번호 입력" class="int" maxlength="16">
+              </span>
+              <button type="button" class="btn-verify btn-primary" id="authSend">
                 인증번호 받기
               </button>
             </div>
           </div>
-          <div class="ps-box auth-disable">
+          <span class="ps-box auth-disable">
             <input type="tel" id="authNum" name="authNum" placeholder="인증번호 입력하세요" class="int" disabled="" maxlength="6">
-          </div>
+          </span>
           <span class="error-next-box" id="authMsg"></span>
           <div class="join-btn-area">
             <button type="button" id="btnJoin" class="btn-type btn-primary"><span>가입하기</span></button>
@@ -177,33 +178,87 @@
         return fetch(url, {method: 'DELETE'});
       }
     }
+    
+    let request = new Request();
     /* Password - 영문, 숫자, 특수문자 3종류 조합, 자리수 9 ~ 32 */
-
     const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{9,32}$/;
     /* Email 패턴 */          
     const EMAIL_PATTERN = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
     /* Tel 패턴 */
-    const TEL_PATTERN = /^\d{2,3}-\d{3,4}-\d{4}$/;
-    const authBtn = document.getElementById("btnSend");
-    const authNum = document.getElementById("authNum");
-    authBtn.addEventListener("click", function(){
-      alert("인증번호가 발송되었습니다.");
-      authNum.disabled = false;
-      authNum.parentElement.style.backgroundColor = '#FFF';
-      authNum.style.backgroundColor = '#FFF';
+    const TEL_PATTERN = /^(\d{2,3})(\d{3,4})(\d{4})$/;
+    const authBtn = document.getElementById('authSend');
+    const authNum = document.getElementById('authNum');
+    const authMsg = document.getElementById('authMsg');
+    authBtn.addEventListener("click", async () => {
+      let telno = document.getElementById('telno');
+      telno.value = telno.value.replace(/[^0-9]/g, '');
+      if(!TEL_PATTERN.test(telno.value)){
+        authMsg.removeAttribute('style')
+        authMsg.innerText = '형식에 맞지 않는 번호입니다.';
+      }else {
+        try {
+          const response = await request.post('/wia/auth/sms', {name: '앵기', title: 'spring'});
+          if(response.status === 200) {
+            const data = await response.json();
+            authMsg.style.color = 'green';
+            authMsg.innerText = "인증번호를 발송했습니다.(유효시간 5분)";
+            authNum.disabled = false;
+            authNum.parentElement.style.backgroundColor = '#FFF';
+            authNum.style.backgroundColor = '#FFF';
+            console.log(data);
+          }else {
+            throw Error(response.status);
+          }
+        }catch(err) {
+          authMsg.removeAttribute('style')
+          authMsg.innerText = "인증번호 발송에 실패했습니다.";
+          console.log(err);
+        }
+        
+      }
+      
     });
     let cursorBox = document.querySelectorAll('.ps-box');
     cursorBox.forEach(box => {
       box.addEventListener('click', (event) => {
-        if(event.target.tagName.toLowerCase() === 'span')
-          event.target.querySelector('input').focus();
+        if(event.target.tagName.toLowerCase() === 'span') {
+          if(event.target.querySelector('input[type="text"]') != null)
+            event.target.querySelector('input[type="text"]').focus();
+          else if(event.target.querySelector('input[type="tel"]') != null) {
+            event.target.querySelector('input[type="tel"]').focus();
+          }else {
+            // document.getElementById('mm').click();
+            // event.target.querySelector('select')[0].click();
+          }
+        }
       });
     });
-    let request = new Request();
+    
     let joinBtn = document.getElementById('btnJoin');
+    $.fn.serializeObject = function() {
+        let obj = null;
+        try {
+            // this[0].tagName이 form tag일 경우
+            if(this[0].tagName && this[0].tagName.toUpperCase() == "FORM" ) {
+                let arr = this.serializeArray();
+                if(arr){
+                    obj = {};
+                    $.each(arr, function() {
+                        // obj의 key값은 arr의 name, obj의 value는 value값
+                        obj[this.name] = this.value;
+                    });
+                }
+            }
+        } catch(e) {
+            alert(e.message);
+        } finally {}
+        return obj;
+    };
     joinBtn.addEventListener('click', async ()=>{
       try {
-        const response = await request.post('/wia/auth/sms', {name: '앵기', title: 'spring'});
+        let formSerializeObject = $('#joinForm').serializeObject();
+
+        const response = await request.post('/wia/signup/create', formSerializeObject);
         if(response.status === 200) {
           const data = await response.json();
           console.log(data);
@@ -231,20 +286,24 @@
     const birthMM = document.getElementById('mm');
     const birthdayMsg = document.getElementById('birthdayMsg');
     birthMM.addEventListener('change', () => {
+      let birthYY = document.getElementById('yy').value;
       let birthDD = document.getElementById('dd').value;
-      console.log('change', birthDD);
       let selectValue = birthMM.options[birthMM.selectedIndex].value;
+      birthdayMsg.style.display = 'block';
       if(selectValue != "") {
-        if(!birthDD) {
-          birthdayMsg.style.display = 'block';
+        if(!birthYY || birthYY.length < 4) {
+          birthdayMsg.innerText = "태어난 년도 4자리를 정확하게 입력하세요.";
+        }else if(!birthDD) {
           birthdayMsg.innerText = '태어난 일(날짜) 2자리를 정확하게 입력하세요.';
         }else {
           birthdayMsg.style.display = 'none';
         }
-      }
-      else {
-        birthdayMsg.style.display = 'block';
-        birthdayMsg.innerText = '태어난 월을 선택하세요.';
+      }else {
+        if(!birthYY || birthYY.length < 4) {
+          birthdayMsg.innerText = "태어난 년도 4자리를 정확하게 입력하세요.";
+        }else {
+          birthdayMsg.innerText = '태어난 월을 선택하세요.';
+        }
       }
     });
     let inputText = document.querySelectorAll('input[type=text]');
@@ -253,10 +312,13 @@
         let target = event.target;
         let pswd1 = document.getElementById('pswd1').value;
         let pswd2 = document.getElementById('pswd2').value;
+        let birthYY = document.getElementById('yy').value;
+        let birthDD = document.getElementById('dd').value;
         const idMsg = document.getElementById('idMsg');
         const pswd1Msg = document.getElementById('pswd1Msg');
         const pswd2Msg = document.getElementById('pswd2Msg');
         const nameMsg = document.getElementById('nameMsg');
+        const emailMsg = document.getElementById('emailMsg');
         switch(target.id) {
           case 'id':
             let userId = target.value.trim();
@@ -328,30 +390,43 @@
             }
             break;
           case 'yy':
-            let yy = target.value.trim();
-            if(!yy || yy.length < 4) {
+            birthdayMsg.style.display = 'block';
+            if(birthYY.length != 4) {
               birthdayMsg.innerText = "태어난 년도 4자리를 정확하게 입력하세요.";
             }else {
               let selectValue = birthMM.options[birthMM.selectedIndex].value;
               if(selectValue == "") {
                 birthdayMsg.innerText = "태어난 월을 선택하세요.";
-              }else {
+              }else if(!birthDD) {
                 birthdayMsg.innerText = "태어난 일(날짜) 2자리를 정확하게 입력하세요.";
+              }else {
+                birthdayMsg.style.display = 'none';
               }
             }
             break;
           case 'dd':
-            let dd = target.value.trim();
-            if(!dd) {
-              birthdayMsg.style.display = 'block';
-              let selectValue = birthMM.options[birthMM.selectedIndex].value;
-              if(selectValue == "") {
+            birthdayMsg.style.display = 'block';
+            let selectValue = birthMM.options[birthMM.selectedIndex].value;
+            if(!birthDD) {
+              if(birthYY.length != 4) {
+                birthdayMsg.innerText = "태어난 년도 4자리를 정확하게 입력하세요.";
+              }else if (selectValue == "") {
                 birthdayMsg.innerText = "태어난 월을 선택하세요.";
               }else {
                 birthdayMsg.innerText = "태어난 일(날짜) 2자리를 정확하게 입력하세요.";
               }
             }else {
-              birthdayMsg.style.display = 'none';
+              if(selectValue != "" && birthYY.length == 4) {
+                birthdayMsg.style.display = 'none';
+              }
+            }
+            break;
+          case 'email':
+            emailMsg.style.display = 'block';
+            if(!EMAIL_PATTERN.test(target.value.trim())) {
+              emailMsg.innerText = "이메일 주소를 다시 확인해주세요.";
+            }else {
+              emailMsg.style.display = 'none';
             }
             break;
           default:
@@ -385,10 +460,8 @@
       /* 정의된 서버에 Json 형식의 요청 Data를 포함하여 요청을 전송 */
       xhr.send(JSON.stringify(reqJson));
     }
-    document.addEventListener("DOMContentLoaded", function(){
-      
-    });
-    
+  </script>
+  <script>
     function findDaumPostcode() {
       new daum.Postcode({
         oncomplete: function(data) {

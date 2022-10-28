@@ -1,22 +1,21 @@
 package com.younggi.wia.controller;
 
 import com.younggi.wia.common.bean.ResultMap;
+import com.younggi.wia.common.controller.CommonController;
 import com.younggi.wia.service.MemberService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.transform.Result;
 import java.util.HashMap;
 import java.util.Map;
 
 @RequestMapping("/wia")
 @Controller
 @RequiredArgsConstructor
-public class HelloController {
+public class HelloController extends CommonController {
 
     private final MemberService memberService;
 
@@ -53,12 +52,19 @@ public class HelloController {
     }
 
     @PostMapping("/auth/sms")
-    @ResponseBody
-    public Hello authSms(@RequestBody Map<String,Object> inputMap){
+    public String authSms(@RequestBody HashMap<String,Object> inputMap, Model model){
         Hello hello = new Hello();
         hello.setName(String.valueOf(inputMap.get("name")));
         hello.setTitle(String.valueOf(inputMap.get("title")));
-        return hello;
+        model.addAllAttributes(inputMap);
+        return JSON_VIEW;
+    }
+
+    @PostMapping("/signup/create")
+    public String createUser(@RequestBody HashMap<String,Object> dataMap, Model model){
+        System.out.println(dataMap.toString());
+        model.addAllAttributes(dataMap);
+        return JSON_VIEW;
     }
     @GetMapping("hello")
     @ResponseBody
