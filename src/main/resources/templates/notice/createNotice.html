@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<head>
+    <title>위아 : 공지사항 등록</title>
+    <script src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8">
+    </script>
+</head>
+<div layout:fragment="content">
+    <form th:action="@{/test}" method="post">
+        <div id="smarteditor">
+            <textarea name="edit" id="edit" row="20" cols="10" placeholder="내용을 입력해주세요" style="width: 500px;"></textarea>
+        </div>
+        <input type="button">
+    </form>
+    <script>
+        let oEditors = []
+        smartEditor = function() {
+            console.log("Naver SmartEditor");
+            nhn.husky.EZCreator.createInIFrame({
+                oAppRef: oEditors,
+                elPlaceHolder: "edit",
+                sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+                fCreator: "createSEditor2"
+            });
+        }
+        $(function () {
+            smartEditor();
+        });
+    </script>
+</div>
+</html>

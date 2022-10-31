@@ -39,6 +39,11 @@ public class HelloController extends CommonController {
         return "login/join";
     }
 
+    @GetMapping("/notice/new")
+    public String createNoticeView() {
+        return "notice/createNotice";
+    }
+
     @GetMapping("/signup/checkId")
     @ResponseBody
     public ResultMap checkId(String id) {
