@@ -4,20 +4,98 @@
       layout:decorate="~{layout/default_layout}">
 <head>
     <title>위아 : 공지사항 등록</title>
-    <script src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8">
-    </script>
+    <script src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <style>
+        .edit-form{
+            width: 1140px;
+            margin: 0 auto;
+        }
+        .form-group{
+            display: grid;
+            grid-template-columns: 200px auto;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e5e5;
+            /* grid-auto-rows: minmax(10px, auto); */
+        }
+        .edit-form .form-title{
+            font-weight: bold;
+            color: #222;
+            padding: 36px 0 10px;
+            border-bottom: 1px solid #333;
+            margin: 0;
+        }
+        .form-group .label-box{
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 5px;
+            padding-left: 40px;
+        }
+        .form-group .form-text-box{
+            width: 100%;
+            max-width: 850px;
+        }
+        .form-group .text-box{
+            width: 100%;
+        }
+        .form-group .text-area-box{
+            width: 100%;
+            height: 200px;
+        }
+        .edit-form .notice-button-area{
+            text-align: center;
+            margin: 20px 0;
+        }
+        .notice-button-area .notice-cancel{
+            width: 80px;
+            height: 40px;
+            border: 0;
+            background: #E64B40;
+            outline: none;
+            color: #fff;
+            cursor:pointer;
+        }
+        .notice-button-area .notice-register{
+            width: 80px;
+            height: 40px;
+            border: 0;
+            background: #F99E39;
+            outline: none;
+            color: #fff;
+            cursor:pointer;
+        }
+    </style>
 </head>
 <div layout:fragment="content">
-    <form th:action="@{/test}" method="post">
-        <div id="smarteditor">
-            <textarea name="edit" id="edit" row="20" cols="10" placeholder="내용을 입력해주세요" style="width: 500px;"></textarea>
+    <form th:action="@{/test}" method="post" id="createNoticeForm">
+        <div class="edit-form">
+            <h4 class="form-title">공지사항 글쓰기</h4>
+            <div class="form-group">
+                <div class="form-label-box">
+                    <label class="label-box">제목</label>
+                </div>
+                <div class="form-text-box">
+                    <input type="text" id="title" name="title" class="text-box" title="제목 입력">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-label-box">
+                    <label class="label-box">내용</label>
+                </div>
+                <div class="form-text-box">
+                    <textarea class="text-area-box" name="edit" id="edit" placeholder="내용을 입력해주세요"></textarea>  
+                </div>
+            </div>
+            <div class="notice-button-area">
+                <button type="button" class="notice-cancel">취소</button>
+                <button type="button" id="createNoticeBtn" class="notice-register">등록</button>
+            </div>
         </div>
-        <input type="button">
     </form>
     <script>
         let oEditors = []
         smartEditor = function() {
-            console.log("Naver SmartEditor");
             nhn.husky.EZCreator.createInIFrame({
                 oAppRef: oEditors,
                 elPlaceHolder: "edit",
@@ -25,6 +103,39 @@
                 fCreator: "createSEditor2"
             });
         }
+        $("#createNoticeBtn").click(function() {
+            oEditors.getById["edit"].exec("UPDATE_CONTENTS_FIELD", []); 
+            //textarea의 id를 적어줍니다.
+
+            // var selcatd = $("#selcatd > option:selected").val();
+            let title = $("#title").val();
+            let content = document.getElementById("edit").value;
+
+            // if (selcatd == "") {
+            //     alert("카테고리를 선택해주세요.");
+            //     return;
+            // }
+            if (title == null || title == "") {
+                alert("제목을 입력해주세요.");
+                $("#title").focus();
+                return;
+            }
+            if(content == "" || content == null || content == '&nbsp;' || 
+                    content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+                alert("본문을 작성해주세요.");
+                oEditors.getById["edit"].exec("FOCUS"); //포커싱
+                return;
+            } //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
+                
+            let result = confirm("발행 하시겠습니까?");
+                
+            if(result){
+                alert("발행 완료!");
+                $("#createNoticeForm").submit();
+            }else{
+                return;
+            }
+        });
         $(function () {
             smartEditor();
         });

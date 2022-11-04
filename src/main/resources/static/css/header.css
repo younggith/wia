@@ -5,7 +5,7 @@ header{
     position: relative;
     height: 130px;
     padding-top: 30px;
-    width: 80%;
+    width: 1140px;
     margin: auto;
 }
 .first-row{
@@ -84,7 +84,7 @@ input::-moz-placeholder{
 .search-area{
 	height: 40px;
 	width: 250px;
-	border: 1px solid #1b5ac2;
+	border: 1px solid #E64B40;
 	background: #fff;
 	position: absolute;
 	bottom: 0;
@@ -102,7 +102,7 @@ input::-moz-placeholder{
 	width: 50px;
 	height: 100%;
 	border: 0;
-	background: #1b5ac2;
+	background: #E64B40;
 	outline: none;
 	float: right;
 	color: #fff;
@@ -121,9 +121,9 @@ input::-moz-placeholder{
         top:auto;
         /*left: 760px;*/
         left: 50%;
-        margin-left: -28%;
+        /* margin-left: -28%; */
         white-space: nowrap;
-        /*transform: translate(-50%, 0%);*/
+        transform: translate(-50%, 0%);
         width: auto;
     }
     .second-row ul{
@@ -160,7 +160,7 @@ input::-moz-placeholder{
     .search-area{
     	height: 40px;
     	width: 250px;
-    	border: 1px solid #1b5ac2;
+    	border: 1px solid #E64B40;
     	background: #fff;
     	position: absolute;
     	bottom: 0;
@@ -178,7 +178,7 @@ input::-moz-placeholder{
     	width: 50px;
     	height: 100%;
     	border: 0;
-    	background: #1b5ac2;
+    	background: #E64B40;
     	outline: none;
     	float: right;
     	color: #fff;
