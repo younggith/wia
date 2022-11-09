@@ -44,6 +44,11 @@ public class HelloController extends CommonController {
         return "notice/createNotice";
     }
 
+    @GetMapping("/storeList")
+    public String storeListView() {
+        return "store/storeList";
+    }
+
     @GetMapping("/signup/checkId")
     @ResponseBody
     public ResultMap checkId(String id) {
